@@ -9,9 +9,12 @@
     "scripts": {
         "build": "cd .. && python tools/bake_site.py local",
         "rebuild": "node ./node_modules/fs-watch-exec/index.js run -d ./src npm run build",
-        "start": "(npm run rebuild& node ./node_modules/serve/build/main.js ./local)"
+        "start": "(npm run rebuild& node ./node_modules/serve/build/main.js ./local)",
+        "dev": "vite --port 3000"
     },
     "devDependencies": {
+        "@types/react": "^18.2.7",
+        "@types/react-dom": "^18.2.4",
         "typescript": "^5.0.4",
         "vite": "^4.3.8"
     }
