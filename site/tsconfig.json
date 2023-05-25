@@ -1,12 +1,12 @@
 {
     "compilerOptions": {
         "target": "ES2020",
-        "module": "commonjs",
+        "module": "CommonJS",
         "strict": true,
         "esModuleInterop": true,
         "moduleResolution": "node",
-        "allowUmdGlobalAccess": true,
-        "jsx": "react"
+        "jsx": "react-jsx",
+        "noImplicitAny": false,
     },
-    "include": ["./src"]
+    "include": ["./src"],
 }
