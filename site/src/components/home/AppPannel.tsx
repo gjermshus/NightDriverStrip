@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import { useThemeSwitcher } from "./ThemeSwitcherProvider";
 import { INotification, NotificationPanel } from "./notifications/notifications";
+import { ConfigPanel, ISiteConfig } from "./config/config";
 
 export const AppPannel = () => {
     // const { classes, mode, setMode } = props;
@@ -18,7 +19,7 @@ export const AppPannel = () => {
     const [animateChart, setAnimateChart] = useState(false);
     const [notifications, setNotifications] = useState<Array<INotification>>([]);
 
-    const siteConfig = {
+    const siteConfig: ISiteConfig = {
         statsRefreshRate: {
             name: "Refresh rate",
             value: statsRefreshRate,
@@ -140,7 +141,7 @@ export const AppPannel = () => {
                                 </IconButton>
                             </ListItemIcon>
                             <ListItemText primary={item.caption} />
-                            {/* {drawerOpened && (item.icon === "settings") && <ConfigPanel siteConfig={siteConfig} />} */}
+                            {drawerOpened && (item.icon === "settings") && <ConfigPanel siteConfig={siteConfig} />}
                         </ListItem>)
                 }
             </List>
