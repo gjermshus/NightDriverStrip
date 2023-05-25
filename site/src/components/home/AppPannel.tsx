@@ -3,14 +3,7 @@ import { AppBar, Divider, Drawer, Icon, IconButton, List, ListItem, ListItemIcon
 import { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import { useThemeSwitcher } from "./ThemeSwitcherProvider";
-
-interface INotifications {
-    date: Date,
-    notifications: any,
-    level: string,
-    type: string,
-    target: string
-}
+import { INotification, NotificationPanel } from "./notifications/notifications";
 
 export const AppPannel = () => {
     // const { classes, mode, setMode } = props;
@@ -23,7 +16,7 @@ export const AppPannel = () => {
     const [statsRefreshRate, setStatsRefreshRate] = useState(3);
     const [maxSamples, setMaxSamples] = useState(50);
     const [animateChart, setAnimateChart] = useState(false);
-    const [notifications, setNotifications] = useState<Array<INotifications>>([]);
+    const [notifications, setNotifications] = useState<Array<INotification>>([]);
 
     const siteConfig = {
         statsRefreshRate: {
@@ -92,7 +85,7 @@ export const AppPannel = () => {
                     variant="h6">
                     NightDriverStrip
                 </Typography>
-                {/* {(notifications.length > 0) && <NotificationPanel notifications={notifications} clearNotifications={() => setNotifications([])} />} */}
+                {(notifications.length > 0) && <NotificationPanel notifications={notifications} clearNotifications={() => setNotifications([])} />}
             </Toolbar>
         </AppBar >
         <Drawer variant="permanent"
