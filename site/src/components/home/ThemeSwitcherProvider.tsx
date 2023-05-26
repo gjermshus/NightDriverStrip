@@ -9,14 +9,6 @@ declare module "@mui/material/styles" {
             strokeColor: string,
             MemoryColor: string,
             idleColor: string,
-            color1: string,
-            color2: string,
-            color3: string,
-            color4: string,
-            bcolor1: string,
-            bcolor2: string,
-            bcolor3: string,
-            bcolor4: string,
         }
     }
 }
