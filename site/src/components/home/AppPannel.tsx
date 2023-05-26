@@ -1,14 +1,15 @@
 import { Box } from "@mui/material";
 import { AppBar, Divider, Drawer, Icon, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
 import { useState } from "react";
-import { useTheme } from "@mui/material/styles";
 import { useThemeSwitcher } from "./ThemeSwitcherProvider";
-import { INotification, NotificationPanel } from "./notifications/notifications";
+import { INotification, INotificationGroup, NotificationPanel } from "./notifications/notifications";
 import { ConfigPanel, ISiteConfig } from "./config/config";
+import { StatsPanel } from "./statistics/stats";
+import { DesignerPanel } from "./designer/designer";
+
 
 export const AppPannel = () => {
-    // const { classes, mode, setMode } = props;
-    const theme = useTheme();
+    const { theme } = useThemeSwitcher();
     const { themeMode, setThemeMode } = useThemeSwitcher();
     const drawerWidth = 240;
     const [drawerOpened, setDrawerOpened] = useState(false);
@@ -17,7 +18,7 @@ export const AppPannel = () => {
     const [statsRefreshRate, setStatsRefreshRate] = useState(3);
     const [maxSamples, setMaxSamples] = useState(50);
     const [animateChart, setAnimateChart] = useState(false);
-    const [notifications, setNotifications] = useState<Array<INotification>>([]);
+    const [notifications, setNotifications] = useState<INotificationGroup[]>([]);
 
     const siteConfig: ISiteConfig = {
         statsRefreshRate: {
@@ -40,13 +41,13 @@ export const AppPannel = () => {
         }
     };
 
-    // const addNotification = (level: string, type: string, target: string, notification: string) => {
-    //     setNotifications(prevNotifs => {
-    //         const group = prevNotifs.find(notif => (notif.level === level) && (notif.type == type) && (notif.target === target)) || { level, type, target, notifications: [] };
-    //         group.notifications.push({ date: new Date(), notification });
-    //         return [...prevNotifs.filter(notif => notif !== group), group];
-    //     });
-    // };
+    const addNotification = (level: string, type: string, target: string, notification: string) => {
+        setNotifications(prevNotifs => {
+            const group = prevNotifs.find(notif => (notif.level === level) && (notif.type == type) && (notif.target === target)) || { level, type, target, notifications: [] };
+            group.notifications.push({ date: new Date(), notification });
+            return [...prevNotifs.filter(notif => notif !== group), group];
+        });
+    };
 
     return <Box sx={{ display: "flex" }}>
         <AppBar sx={{
@@ -164,8 +165,8 @@ export const AppPannel = () => {
                 })
             })
         }}>
-            {/* <StatsPanel siteConfig={siteConfig} open={stats} addNotification={addNotification} />
-            <DesignerPanel siteConfig={siteConfig} open={designer} addNotification={addNotification} /> */}
+            <StatsPanel siteConfig={siteConfig} open={stats} addNotification={addNotification} />
+            <DesignerPanel open={designer} addNotification={addNotification} />
         </Box>
     </Box >
 };

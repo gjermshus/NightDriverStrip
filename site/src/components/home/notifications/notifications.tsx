@@ -3,14 +3,18 @@ import { createRef, useEffect, useState } from "react";
 
 export interface INotification {
     date: Date,
-    notifications: any,
-    level: string,
-    type: string,
-    target: string
+    notification: string,
+}
+
+export interface INotificationGroup {
+    level: string;
+    type: string;
+    target: string;
+    notifications: Array<INotification>;
 }
 
 interface INotificationPanelProps {
-    notifications: Array<INotification>,
+    notifications: Array<INotificationGroup>,
     clearNotifications: () => void
 };
 
