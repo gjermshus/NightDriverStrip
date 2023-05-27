@@ -1,11 +1,12 @@
 import { Box } from "@mui/material";
 import { AppBar, Divider, Drawer, Icon, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
 import { useState } from "react";
-import { useThemeSwitcher } from "./ThemeSwitcherProvider";
-import { INotification, INotificationGroup, NotificationPanel } from "./notifications/notifications";
-import { ConfigPanel, ISiteConfig } from "./config/config";
-import { StatsPanel } from "./statistics/stats";
-import { DesignerPanel } from "./designer/designer";
+import { useThemeSwitcher } from "../ThemeSwitcherProvider";
+import { INotificationGroup, NotificationPanel } from "../notifications/notifications";
+import { ISiteConfig } from "../config/config";
+import { ConfigPanel } from "../config/ConfigPanel";
+import { StatsPanel } from "../statistics/stats";
+import { DesignerPanel } from "../designer/designer";
 
 
 export const AppPannel = () => {
@@ -15,31 +16,9 @@ export const AppPannel = () => {
     const [drawerOpened, setDrawerOpened] = useState(false);
     const [stats, setStats] = useState(false);
     const [designer, setDesigner] = useState(false);
-    const [statsRefreshRate, setStatsRefreshRate] = useState(3);
-    const [maxSamples, setMaxSamples] = useState(50);
-    const [animateChart, setAnimateChart] = useState(false);
     const [notifications, setNotifications] = useState<INotificationGroup[]>([]);
 
-    const siteConfig: ISiteConfig = {
-        statsRefreshRate: {
-            name: "Refresh rate",
-            value: statsRefreshRate,
-            setter: setStatsRefreshRate,
-            type: "int"
-        },
-        statsAnimateChange: {
-            name: "Animate chart",
-            value: animateChart,
-            setter: setAnimateChart,
-            type: "boolean"
-        },
-        maxSamples: {
-            name: "Chart points",
-            value: maxSamples,
-            setter: setMaxSamples,
-            type: "int"
-        }
-    };
+   
 
     const addNotification = (level: string, type: string, target: string, notification: string) => {
         setNotifications(prevNotifs => {
@@ -142,7 +121,7 @@ export const AppPannel = () => {
                                 </IconButton>
                             </ListItemIcon>
                             <ListItemText primary={item.caption} />
-                            {drawerOpened && (item.icon === "settings") && <ConfigPanel siteConfig={siteConfig} />}
+                            {drawerOpened && (item.icon === "settings") && <ConfigPanel />}
                         </ListItem>)
                 }
             </List>
@@ -165,7 +144,7 @@ export const AppPannel = () => {
                 })
             })
         }}>
-            <StatsPanel siteConfig={siteConfig} open={stats} addNotification={addNotification} />
+            <StatsPanel open={stats} addNotification={addNotification} />
             <DesignerPanel open={designer} addNotification={addNotification} />
         </Box>
     </Box >
