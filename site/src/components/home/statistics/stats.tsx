@@ -2,19 +2,18 @@ import { Box, Icon, IconButton, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { httpPrefix } from "../../../espaddr";
 import { StaticStatsPanel } from "./static/static";
-import { ISiteConfig } from "../config/config";
 import { AreaStat } from "./areachart/areachart";
 import { BarStat } from "./barchart/barchart";
+import { useSiteConfig } from "../config/SiteConfigProvider";
 
 interface IStatsPanelProps {
-    siteConfig: ISiteConfig;
     open: boolean;
     addNotification: (level: string, type: string, target: string, notification: string) => void; // TODO move type declaration to a separate file
 }
 
-export function StatsPanel({ siteConfig, open, addNotification }: IStatsPanelProps) {
+export function StatsPanel({ open, addNotification }: IStatsPanelProps) {
     type StatsPayload = Awaited<ReturnType<typeof getStats>>; // TODO Move getStats and type declaration to a separate file or function
-    const { statsRefreshRate, statsAnimateChange, maxSamples } = siteConfig;
+    const { siteConfig: { statsRefreshRate, statsAnimateChange, maxSamples } } = useSiteConfig();
     const [statistics, setStatistics] = useState<StatsPayload>();
     const [timer, setTimer] = useState<number | undefined>(undefined);
     const [lastRefreshDate, setLastRefreshDate] = useState<number | undefined>(undefined);
