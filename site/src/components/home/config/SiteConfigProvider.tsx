@@ -19,6 +19,11 @@ const defaultSiteConfig: ISiteConfig = {
         name: "Chart points",
         value: 50,
         type: "int"
+    },
+    theme: {
+        name: "Dark mode",
+        value: true,
+        type: "boolean"
     }
 };
 

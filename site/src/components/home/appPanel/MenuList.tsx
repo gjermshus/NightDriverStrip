@@ -3,7 +3,7 @@ import { Icon, List, ListItem, ListItemIcon, ListItemText } from "@mui/material"
 import { ConfigMenuItem } from "./ConfigMenuItem";
 
 export function MenuList() {
-    return (<List>
+    return (<List sx={{marginTop: "64px"}}>
         {[{
             caption: "Home",
             icon: "home"

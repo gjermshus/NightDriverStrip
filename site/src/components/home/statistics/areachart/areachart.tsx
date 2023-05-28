@@ -1,7 +1,7 @@
 import { Box, List, ListItem, Typography } from "@mui/material";
 import { useMemo, useState } from "react";
 import { Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
-import { useThemeSwitcher } from "../../ThemeSwitcherProvider";
+import { useCustomTheme } from "../../ThemeSwitcherProvider";
 
 interface IAreaStatProps {
     name: string;
@@ -23,7 +23,7 @@ export function AreaStat({ classes, name, rawvalue, ignored, statsAnimateChange,
         .filter(entry => !ignored.includes(entry[0]))
         .reduce((ret, stat) => { ret[stat[0]] = stat[1]; return ret }, { ts: new Date().getTime() })]);
     const getValue = (value) => value !== undefined && !Number.isInteger(value) ? (isNaN(value) ? value : value.toFixed(2)) : value;
-    const { theme } = useThemeSwitcher();
+    const { theme } = useCustomTheme();
 
     useMemo(() => {
         setLastStates(lastStates === undefined ? [Object.entries(getChartValues(rawvalue))] : [...lastStates, Object.entries(getChartValues(rawvalue))

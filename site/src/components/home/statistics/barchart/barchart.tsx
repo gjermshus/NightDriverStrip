@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
-import { useThemeSwitcher } from "../../ThemeSwitcherProvider";
+import { useCustomTheme } from "../../ThemeSwitcherProvider";
 
 interface IBarStatProps {
     name: string;
@@ -15,7 +15,7 @@ interface IBarStatProps {
 };
 
 export function BarStat(props: IBarStatProps) {
-    const { theme } = useThemeSwitcher();
+    const { theme } = useCustomTheme();
 
     const getFillColor = ({ step, isIdle }) => {
         if (isIdle) {

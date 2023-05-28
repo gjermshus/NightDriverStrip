@@ -1,6 +1,7 @@
 import { Theme, ThemeProvider } from "@mui/material/styles";
 import { createContext, useContext, useMemo, useState } from "react";
 import { ThemeMode, getTheme } from "../../theme/theme";
+import { useSiteConfig } from "./config/SiteConfigProvider";
 
 // TODO Move out
 declare module "@mui/material/styles" {
@@ -13,40 +14,36 @@ declare module "@mui/material/styles" {
     }
 }
 
-interface IThemeSwitcherContext {
-    themeMode: ThemeMode,
-    setThemeMode: (mode: ThemeMode) => void,
+interface ICustomThemeContext {
     theme: Theme
 };
 
-export const ThemeSwitcherContext = createContext<IThemeSwitcherContext>(
+export const CustomThemeContext = createContext<ICustomThemeContext>(
     {
-        themeMode: 'dark',
-        setThemeMode: (mode: ThemeMode) => { },
         theme: getTheme('dark')
     }
 );
 
-export const useThemeSwitcher = () => {
-    if (ThemeSwitcherContext === null) {
+export const useCustomTheme = () => {
+    if (CustomThemeContext === null) {
         throw new Error('useThemeSwitcher must be used within a ThemeSwitcherProvider');
     }
-    const { themeMode, setThemeMode, theme } = useContext(ThemeSwitcherContext);
-    return { themeMode, setThemeMode, theme };
+    const { theme } = useContext(CustomThemeContext);
+    return { theme };
 };
 
 // There seem to be a bug or something strange behavior with the ThemeProvider from @mui/material/styles that
 // makes the useTheme() hook not working properly. It only returns the default theme, not the one from the
 // ThemeProvider. So I'm using this custom hook instead.
 
-export function ThemeSwitcherProvider({ children }) {
-    const [themeMode, setThemeMode] = useState<ThemeMode>('dark');
-    const theme = useMemo(() => getTheme(themeMode), [themeMode]);
+export function CustomThemeProvider({ children }) {
+    const { siteConfig: { theme: { value } } } = useSiteConfig();
+    const theme = useMemo(() => getTheme(value ? "dark" : "light" as ThemeMode), [value]);
     return (
-        <ThemeSwitcherContext.Provider value={{ themeMode, setThemeMode, theme }}>
+        <CustomThemeContext.Provider value={{ theme }}>
             <ThemeProvider theme={theme}>
                 {children}
             </ThemeProvider>
-        </ThemeSwitcherContext.Provider>
+        </CustomThemeContext.Provider>
     );
 }
