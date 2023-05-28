@@ -6,6 +6,7 @@ import { INotificationGroup, NotificationPanel } from "../notifications/notifica
 import { StatsPanel } from "../statistics/stats";
 import { DesignerPanel } from "../designer/designer";
 import { MenuList } from "./MenuList";
+import { MainArea } from "./MainArea";
 
 
 export const AppPannel = () => {
@@ -13,8 +14,7 @@ export const AppPannel = () => {
     const { themeMode, setThemeMode } = useThemeSwitcher();
     const drawerWidth = 240;
     const [drawerOpened, setDrawerOpened] = useState(false);
-    const [stats, setStats] = useState(false);
-    const [designer, setDesigner] = useState(false);
+
     const [notifications, setNotifications] = useState<INotificationGroup[]>([]);
 
 
@@ -105,27 +105,7 @@ export const AppPannel = () => {
             <Divider />
             <MenuList />
         </Drawer>
-        <Box sx={{
-            padding: theme.spacing(4),
-            transition: theme.transitions.create('padding-left', {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.leavingScreen,
-            }),
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            rowGap: "10px",
-            ...(drawerOpened && {
-                paddingLeft: drawerWidth + 10,
-                transition: theme.transitions.create('padding-left', {
-                    easing: theme.transitions.easing.sharp,
-                    duration: theme.transitions.duration.leavingScreen,
-                })
-            })
-        }}>
-            <StatsPanel open={stats} addNotification={addNotification} />
-            <DesignerPanel open={designer} addNotification={addNotification} />
-        </Box>
+        <MainArea drawerOpened={drawerOpened} drawerWidth={drawerWidth} addNotification={addNotification} />
     </Box >
 };
 
