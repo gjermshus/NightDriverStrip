@@ -1,12 +1,11 @@
 import { Box } from "@mui/material";
-import { AppBar, Divider, Drawer, Icon, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
+import { AppBar, Divider, Drawer, Icon, IconButton, ListItemText, Toolbar, Typography } from "@mui/material";
 import { useState } from "react";
 import { useThemeSwitcher } from "../ThemeSwitcherProvider";
 import { INotificationGroup, NotificationPanel } from "../notifications/notifications";
-import { ISiteConfig } from "../config/config";
-import { ConfigPanel } from "../config/ConfigPanel";
 import { StatsPanel } from "../statistics/stats";
 import { DesignerPanel } from "../designer/designer";
+import { MenuList } from "./MenuList";
 
 
 export const AppPannel = () => {
@@ -18,7 +17,7 @@ export const AppPannel = () => {
     const [designer, setDesigner] = useState(false);
     const [notifications, setNotifications] = useState<INotificationGroup[]>([]);
 
-   
+
 
     const addNotification = (level: string, type: string, target: string, notification: string) => {
         setNotifications(prevNotifs => {
@@ -104,27 +103,7 @@ export const AppPannel = () => {
                 </IconButton>
             </Box>
             <Divider />
-            <List>
-                {
-                    [{ caption: "Home", flag: designer, setter: setDesigner, icon: "home" },
-                    { caption: "Statistics", flag: stats, setter: setStats, icon: "area_chart" },
-                    { caption: "", flag: drawerOpened, icon: "settings", setter: setDrawerOpened }].map(item =>
-                        <ListItem key={item.icon}>
-                            <ListItemIcon>
-                                <IconButton onClick={() => item.setter && item.setter(prevValue => !prevValue)}>
-                                    <Icon color="action"
-                                        sx={{
-                                            ...(item.flag && {
-                                                color: theme.palette.primary.main
-                                            })
-                                        }}>{item.icon}</Icon>
-                                </IconButton>
-                            </ListItemIcon>
-                            <ListItemText primary={item.caption} />
-                            {drawerOpened && (item.icon === "settings") && <ConfigPanel />}
-                        </ListItem>)
-                }
-            </List>
+            <MenuList />
         </Drawer>
         <Box sx={{
             padding: theme.spacing(4),
@@ -149,3 +128,5 @@ export const AppPannel = () => {
         </Box>
     </Box >
 };
+
+
