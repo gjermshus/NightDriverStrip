@@ -3,19 +3,20 @@ import { httpPrefix } from "../../../espaddr";
 import { Box, ClickAwayListener, Icon, IconButton, Link, TextField, Typography } from "@mui/material";
 import { Countdown } from "./countdown/countdown";
 import { Effect } from "./effect/effect";
+import { useNotifications } from "../notifications/NotificationsProvider";
 
 interface IDesignerPanelProps {
     open: boolean;
-    addNotification: (level: string, type: string, target: string, notification: string) => void; // TODO: use notification type from function definition
 }
 
-export function DesignerPanel({ open, addNotification }: IDesignerPanelProps) {
+export function DesignerPanel({ open }: IDesignerPanelProps) {
     const [effects, setEffects] = useState<any | undefined>(undefined);
     const [abortControler, setAbortControler] = useState<AbortController | undefined>(undefined); // TODO Refactor and reuse abort controller
     const [nextRefreshDate, setNextRefreshDate] = useState<number | undefined>(undefined);
     const [editing, setEditing] = useState(false);
     const [requestRunning, setRequestRunning] = useState(false);
     const [pendingInterval, setPendingInterval] = useState(effects && effects.effectInterval);
+    const { addNotification } = useNotifications();
 
     useEffect(() => {
         if (abortControler) {

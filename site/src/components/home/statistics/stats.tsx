@@ -5,15 +5,16 @@ import { StaticStatsPanel } from "./static/static";
 import { AreaStat } from "./areachart/areachart";
 import { BarStat } from "./barchart/barchart";
 import { useSiteConfig } from "../config/SiteConfigProvider";
+import { useNotifications } from "../notifications/NotificationsProvider";
 
 interface IStatsPanelProps {
     open: boolean;
-    addNotification: (level: string, type: string, target: string, notification: string) => void; // TODO move type declaration to a separate file
 }
 
-export function StatsPanel({ open, addNotification }: IStatsPanelProps) {
+export function StatsPanel({ open }: IStatsPanelProps) {
     type StatsPayload = Awaited<ReturnType<typeof getStats>>; // TODO Move getStats and type declaration to a separate file or function
     const { siteConfig: { statsRefreshRate, statsAnimateChange, maxSamples } } = useSiteConfig();
+    const { addNotification } = useNotifications();
     const [statistics, setStatistics] = useState<StatsPayload>();
     const [timer, setTimer] = useState<number | undefined>(undefined);
     const [lastRefreshDate, setLastRefreshDate] = useState<number | undefined>(undefined);
