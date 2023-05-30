@@ -16,3 +16,6 @@ WebInstaller/firmware/**
 WebInstaller/manifests/**
 WebInstaller/web_projects.json
 .idea/**
+
+# Build directory for vite
+site/dist
