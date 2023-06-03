@@ -2,6 +2,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { viteExternalsPlugin } from 'vite-plugin-externals';
+import compression from "vite-plugin-compression2";
 
 const viteExternals = viteExternalsPlugin({
     react: 'React',
@@ -12,10 +13,18 @@ const viteExternals = viteExternalsPlugin({
     '@material-ui': 'MaterialUI',
     "recharts": "Recharts",
     "@mui": "MaterialUI"
-})
+});
+
+const viteCompression = compression({
+    algorithm: "gzip",
+    compressionOptions: { level: 9 },
+    threshold: 1024,
+    deleteOriginalAssets: true
+});
+
 
 export default defineConfig({
-    plugins: [react(), viteExternals],
+    plugins: [react(), viteExternals, viteCompression],
     server: {
         port: 3000,
     },

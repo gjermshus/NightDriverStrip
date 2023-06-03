@@ -29,6 +29,7 @@
         "@vitejs/plugin-react": "^4.0.0",
         "typescript": "^5.0.4",
         "vite": "^4.3.8",
+        "vite-plugin-compression2": "^0.9.1",
         "vite-plugin-externals": "^0.6.2"
     }
 }
