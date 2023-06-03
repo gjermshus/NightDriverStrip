@@ -22,5 +22,12 @@ export default defineConfig({
     publicDir: './local',
     build: {
         outDir: './dist',
+        rollupOptions: {
+            output: {
+                entryFileNames: 'assets/[name].js',
+                chunkFileNames: 'assets/[name].js',
+                assetFileNames: 'assets/[name].[ext]'
+            }
+        },
     },
 });
