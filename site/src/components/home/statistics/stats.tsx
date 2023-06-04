@@ -16,7 +16,7 @@ export function StatsPanel({ open }: IStatsPanelProps) {
     const { siteConfig: { statsRefreshRate, statsAnimateChange, maxSamples } } = useSiteConfig();
     const { addNotification } = useNotifications();
     const [statistics, setStatistics] = useState<StatsPayload>();
-    const [timer, setTimer] = useState<number | undefined>(undefined);
+    const [timer, setTimer] = useState<NodeJS.Timer | undefined>(undefined);
     const [lastRefreshDate, setLastRefreshDate] = useState<number | undefined>(undefined);
     const [abortControler, setAbortControler] = useState<AbortController | undefined>(undefined);
     const [openedCategories, setOpenedCategories] = useState({

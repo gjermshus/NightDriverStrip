@@ -13,6 +13,7 @@ interface IAreaStatProps {
     idleField: string;
     category: string;
     detail: boolean;
+    classes?: any;
 }
 
 export function AreaStat({ classes, name, rawvalue, ignored, statsAnimateChange, maxSamples, headerFields, idleField, category, detail }: IAreaStatProps) {
