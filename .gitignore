@@ -19,3 +19,4 @@ WebInstaller/web_projects.json
 
 # Build directory for vite
 site/dist
+site/coverage
